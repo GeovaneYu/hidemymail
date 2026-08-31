@@ -1,0 +1,27 @@
+/* Ocultar Meu E-mail — Tahoe Liquid Glass button */
+.hidemymail-autofill-btn {
+  position: fixed;
+  z-index: 2147483647;
+  background: rgba(10,132,255,0.92);
+  color: white;
+  border: 0.5px solid rgba(255,255,255,0.28);
+  border-radius: 10px;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.08px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.10), 0 6px 20px rgba(10,132,255,0.28), inset 0 0.5px 0 rgba(255,255,255,0.35);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", sans-serif;
+  display: none;
+  transition: background 0.16s cubic-bezier(0.32,0.72,0,1), transform 0.14s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.16s, opacity 0.16s;
+  backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
+  white-space: nowrap; line-height: 1;
+}
+.hidemymail-autofill-btn:hover { background: #007AFF; box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 8px 24px rgba(10,132,255,0.32), inset 0 0.5px 0 rgba(255,255,255,0.35); }
+.hidemymail-autofill-btn:active { background: #0068D1; transform: scale(0.96); }
+.hidemymail-autofill-btn:focus-visible { outline: 2px solid #0A84FF; outline-offset: 2px; }
+@media (prefers-color-scheme: dark) {
+  .hidemymail-autofill-btn { background: rgba(10,132,255,0.88); border-color: rgba(255,255,255,0.14); box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(10,132,255,0.32), inset 0 0.5px 0 rgba(255,255,255,0.18); }
+  .hidemymail-autofill-btn:hover { background: #409CFF; }
+}

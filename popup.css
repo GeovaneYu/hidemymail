@@ -1,0 +1,372 @@
+/* ═══════════════════════════════════════════════════════════
+   Ocultar Meu E-mail — macOS Tahoe 26 Liquid Glass
+   Vidro translúcido • Blur 40px • Bordas hairline • SF Pro
+   Padrão Apple Tahoe • Todo sistema em vidro
+   ═══════════════════════════════════════════════════ */
+
+/* ——— Tahoe — Claro ——— */
+:root {
+  --blue: #0A84FF;
+  --blue-hover: #007AFF;
+  --blue-pressed: #0068D1;
+  --blue-tint: rgba(10,132,255,0.10);
+  --green: #30D158;
+  --red: #FF3B30;
+  /* Tahoe glass */
+  --bg: #F5F5F7;
+  --bg-gradient: linear-gradient(180deg, #F5F5F7 0%, #EDEEF2 100%);
+  --card: rgba(255,255,255,0.82);
+  --card-hover: rgba(255,255,255,0.92);
+  --card-solid: #FFFFFF;
+  --separator: rgba(60,60,67,0.10);
+  --separator-strong: rgba(60,60,67,0.16);
+  --label: #1D1D1F;
+  --secondary: #545458;
+  --tertiary: #6E6E73;
+  --fill: rgba(120,120,128,0.12);
+  --fill-hover: rgba(120,120,128,0.18);
+  --glass: rgba(255,255,255,0.72);
+  --glass-border: rgba(255,255,255,0.55);
+  --glass-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.07), 0 20px 48px rgba(0,0,0,0.04), inset 0 0.5px 0 rgba(255,255,255,0.85);
+  --glass-shadow-strong: 0 2px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.10), inset 0 0.5px 0 rgba(255,255,255,0.9);
+  --radius: 14px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+  --spring: cubic-bezier(0.2,0.8,0.2,1);
+  --ease: cubic-bezier(0.32,0.72,0,1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+html { width:384px; background: var(--bg); }
+body {
+  width:384px; min-height:520px; max-height:600px;
+  background: var(--bg-gradient); color: var(--label);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", sans-serif;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility; font-feature-settings:"ss01" on;
+  font-size:13px; line-height:1.4; letter-spacing:-0.08px; overflow:hidden;
+}
+#app {
+  width:384px; max-width:384px; height:600px; max-height:600px;
+  overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain;
+  scrollbar-width:thin; scrollbar-color: rgba(60,60,67,0.18) transparent;
+  background: transparent;
+}
+#app::-webkit-scrollbar { width:6px; }
+#app::-webkit-scrollbar-thumb { background: rgba(60,60,67,0.18); border-radius:999px; }
+
+/* ── Tahoe Header — Liquid Glass ── */
+.apple-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px 13px;
+  background: var(--glass);
+  backdrop-filter: saturate(180%) blur(36px); -webkit-backdrop-filter: saturate(180%) blur(36px);
+  border-bottom: 0.5px solid rgba(60,60,67,0.08);
+  box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.65), 0 1px 3px rgba(0,0,0,0.04);
+  position:sticky; top:0; z-index:20;
+}
+.header-left { display:flex; align-items:center; gap:10px; }
+.icloud-icon {
+  width:30px; height:30px; border-radius:8px;
+  background: linear-gradient(180deg, #0A84FF 0%, #007AFF 100%);
+  display:grid; place-items:center; color:white; font-size:16px; font-weight:700; line-height:1;
+  box-shadow: 0 1px 3px rgba(0,122,255,0.28), 0 6px 18px rgba(0,122,255,0.20), inset 0 0.5px 0 rgba(255,255,255,0.45);
+}
+.apple-header h1 { font-size:15px; font-weight:650; margin:0; letter-spacing:-0.35px; line-height:1.1; color:var(--label); }
+.subtitle { font-size:11px; color: var(--secondary); margin:1px 0 0; font-weight:400; }
+.header-right { display:flex; align-items:center; gap:10px; }
+.header-theme-btn {
+  width:30px; height:30px; border-radius:50%;
+  background: var(--fill); color: var(--label);
+  border:0.5px solid rgba(60,60,67,0.08); display:grid; place-items:center; cursor:pointer;
+  transition: background 0.15s, transform 0.12s, color 0.15s, box-shadow 0.15s; flex-shrink:0;
+  backdrop-filter: blur(12px);
+}
+.header-theme-btn:hover { background: var(--fill-hover); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.header-theme-btn:active { transform: scale(0.92); }
+.status-dot { width:8px; height:8px; border-radius:50%; background: var(--tertiary); box-shadow:0 0 0 5px rgba(142,142,147,0.10); transition: all 0.35s var(--spring); flex-shrink:0; cursor:pointer; }
+.status-dot.ok { background: var(--green); box-shadow:0 0 0 5px rgba(48,209,88,0.16), 0 0 12px rgba(48,209,88,0.22); }
+.status-dot.err { background: var(--red); box-shadow:0 0 0 5px rgba(255,59,48,0.14); }
+
+/* ── Loading ── */
+.apple-loading { display:flex; align-items:center; justify-content:center; gap:10px; padding:44px 16px; color: var(--secondary); font-size:12.5px; cursor:pointer; }
+.apple-loading:hover { color: var(--label); }
+.spinner { width:18px; height:18px; border-radius:50%; border:2px solid rgba(10,132,255,0.12); border-top-color:var(--blue); animation: spin 0.72s cubic-bezier(0.5,0,0.5,1) infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Sections ── */
+.apple-section { padding:14px 16px 0; }
+.apple-section:last-of-type { padding-bottom:12px; }
+.section-title { font-size:11px; font-weight:600; color: var(--secondary); letter-spacing:0.38px; margin:0 0 7px 8px; text-transform:uppercase; }
+.section-footer { font-size:11px; color: var(--secondary); margin:7px 8px 0; line-height:1.45; }
+
+/* ── Tahoe Grouped — Glass Inset ── */
+.apple-grouped {
+  background: var(--card);
+  backdrop-filter: saturate(180%) blur(24px); -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-radius: var(--radius); overflow:hidden;
+  box-shadow: var(--glass-shadow);
+  border:0.5px solid rgba(60,60,67,0.08);
+  position:relative;
+}
+.grouped-row { display:flex; align-items:center; justify-content:space-between; padding:11px 14px; min-height:44px; gap:12px; background: transparent; position:relative; }
+.grouped-row + .grouped-row::before { content:""; position:absolute; top:0; left:14px; right:0; height:0.5px; background: var(--separator); }
+.grouped-row.no-border::before { display:none; }
+
+/* ── Top bar ── */
+.top-bar { display:flex; gap:8px; align-items:center; }
+.btn-top-generate { flex:1; padding:11px; font-weight:600; }
+
+/* ── Email Preview — Tahoe Hero ── */
+.email-preview { background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(245,245,247,0.85) 100%); }
+.email-preview-content { flex:1; min-width:0; }
+.email-label { display:block; font-size:10px; font-weight:600; color: var(--secondary); letter-spacing:0.4px; margin-bottom:3px; text-transform:uppercase; }
+.email-preview code { font-family:"SF Mono", -apple-system, BlinkMacSystemFont, monospace; font-size:13px; font-weight:600; color: var(--label); word-break:break-all; display:block; letter-spacing:-0.15px; line-height:1.3; }
+.email-domain { font-size:11px; color: var(--secondary); margin-top:1px; display:block; }
+.email-empty { justify-content:center; color: var(--secondary); font-size:13px; padding:18px; }
+.email-empty.muted { opacity:1; color: var(--secondary); }
+.row-label { font-size:13px; color: var(--label); white-space:nowrap; min-width:86px; }
+.row-control { display:flex; align-items:center; gap:5px; flex:1; justify-content:flex-end; min-width:0; }
+.apple-select { border:none; background:transparent; font-size:13px; color: var(--blue); text-align:right; max-width:182px; appearance:none; cursor:pointer; text-overflow:ellipsis; outline:none; padding-right:2px; }
+.chevron { color: var(--tertiary); font-size:14px; margin-left:-1px; transition: transform 0.2s var(--ease); }
+
+/* ── Inputs ── */
+.apple-input { flex:1; border:none; background:transparent; font-size:13px; color: var(--label); text-align:right; outline:none; min-width:0; }
+.apple-input::placeholder { color: var(--tertiary); }
+
+/* ── Tahoe Buttons — Vibrant ── */
+.apple-btn {
+  border:none; border-radius:11px; font-size:13px; font-weight:590; padding:10px 16px; cursor:pointer;
+  transition: background 0.16s var(--ease), transform 0.12s var(--spring), box-shadow 0.16s;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif; letter-spacing:-0.12px;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px; text-decoration:none; user-select:none;
+  backdrop-filter: blur(12px);
+}
+.apple-btn:active { transform: scale(0.98); }
+.apple-btn.primary { background: var(--blue); color:white; box-shadow:0 0.5px 1px rgba(0,0,0,0.08), 0 4px 14px rgba(10,132,255,0.24), inset 0 0.5px 0 rgba(255,255,255,0.35); }
+.apple-btn.primary:hover { background: var(--blue-hover); box-shadow:0 1px 4px rgba(0,0,0,0.10), 0 6px 20px rgba(10,132,255,0.28); }
+.apple-btn.secondary { background: var(--fill); color: var(--blue); font-weight:590; border:0.5px solid rgba(60,60,67,0.06); }
+.apple-btn.secondary:hover { background: var(--fill-hover); }
+.apple-btn.large { width:100%; padding:12px; font-size:14px; font-weight:600; border-radius:12px; margin-top:10px; letter-spacing:-0.2px; }
+.apple-link { display:block; text-align:center; color: var(--blue); font-size:12px; text-decoration:none; margin-top:10px; }
+.apple-link-btn { background:none; border:none; color: var(--blue); font-size:13px; cursor:pointer; margin:10px auto 0; display:block; padding:4px 8px; border-radius:6px; }
+.apple-link-btn:hover { background: var(--blue-tint); }
+.icon-btn { width:30px; height:30px; border-radius:50%; border:none; background: var(--fill); color: var(--label); cursor:pointer; display:grid; place-items:center; transition: background 0.15s, transform 0.12s; flex-shrink:0; border:0.5px solid rgba(60,60,67,0.06); }
+.icon-btn:hover { background: var(--fill-hover); }
+.icon-btn:active { transform: scale(0.92); }
+.apple-small-btn { font-size:12px; font-weight:600; color: var(--blue); background: var(--blue-tint); border:none; padding:5px 12px; border-radius:var(--radius-pill); cursor:pointer; transition: background 0.15s; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; border:0.5px solid rgba(10,132,255,0.08); }
+.apple-small-btn--pix { background: var(--green); color:white; border-color: rgba(48,209,88,0.2); }
+
+/* ── Cards — Tahoe Glass ── */
+.apple-card { background: var(--card); backdrop-filter: saturate(180%) blur(24px); -webkit-backdrop-filter: saturate(180%) blur(24px); margin:12px 16px; padding:22px 16px; border-radius:var(--radius-lg); box-shadow: var(--glass-shadow); border:0.5px solid rgba(60,60,67,0.08); text-align:center; position:relative; overflow:hidden; }
+.apple-card::before { content:""; position:absolute; inset:0; border-radius:var(--radius-lg); box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.65); pointer-events:none; }
+.apple-card.illustration { padding:26px 16px; }
+.apple-illustration { margin-bottom:12px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); display:grid; place-items:center; }
+.apple-card h2 { font-size:17px; font-weight:700; margin:0 0 6px; letter-spacing:-0.4px; line-height:1.2; color: var(--label); }
+.apple-desc { font-size:13px; color: var(--secondary); margin:0; line-height:1.45; }
+.apple-desc b { font-weight:600; color: var(--label); }
+.apple-info-box { display:flex; gap:9px; text-align:left; background: rgba(245,245,247,0.85); border-radius:10px; padding:11px 12px; margin:14px 0; font-size:12px; color: var(--secondary); line-height:1.4; border:0.5px solid var(--separator); backdrop-filter: blur(12px); }
+.apple-info-box b { color: var(--label); }
+.info-icon { flex-shrink:0; margin-top:1px; color: var(--blue); }
+.apple-success { background: rgba(232,245,233,0.9); border:0.5px solid #C8E6C9; color:#1B5E20; padding:11px 12px; border-radius:10px; font-size:12px; font-weight:500; display:flex; align-items:center; justify-content:center; gap:7px; backdrop-filter: blur(12px); }
+.success-icon { width:20px; height:20px; background: var(--green); color:white; border-radius:50%; display:grid; place-items:center; font-size:11px; font-weight:700; flex-shrink:0; }
+.apple-error { background: rgba(255,240,240,0.9); border:0.5px solid #FFCDD2; color:#C62828; padding:10px 12px; border-radius:10px; font-size:12px; margin-top:10px; line-height:1.4; backdrop-filter: blur(12px); }
+.secure-note { text-align:left; margin-top:12px; background: linear-gradient(180deg, #1B5E20 0%, #2E7D32 100%); border:0.5px solid #2E7D32; color:#FFFFFF; border-radius:10px; padding:11px 12px; display:flex; gap:9px; font-size:11px; line-height:1.35; box-shadow: 0 2px 8px rgba(27,94,32,0.20); }
+.secure-note b { color:white; }
+.support-discreet {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:6px 8px; font-size:11px; color: var(--tertiary);
+  opacity:0.92; text-align:center;
+}
+.support-discreet-label { font-weight:500; color: var(--tertiary); }
+.support-discreet-link { color: var(--blue); text-decoration:none; font-weight:500; padding:2px 6px; border-radius:6px; transition: background 0.15s; }
+.support-discreet-link:hover { background: var(--blue-tint); text-decoration:none; }
+.support-dot { color: var(--tertiary); font-size:11px; }
+/* legacy support-row kept for options.html */
+.support-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.support-meta { display:flex; flex-direction:column; gap:1px; min-width:0; flex:1; }
+.support-title { font-size:13px; font-weight:500; color: var(--label); }
+.support-sub { font-size:11px; color: var(--secondary); }
+
+/* ── Search — Tahoe pill ── */
+.apple-search-wrap { display:flex; align-items:center; gap:7px; background: var(--fill); border-radius:10px; padding:7px 11px; margin:8px 0; transition: background 0.15s, box-shadow 0.15s; border:0.5px solid transparent; backdrop-filter: blur(12px); }
+.apple-search-wrap:focus-within { background: var(--card-solid); border-color: var(--blue); box-shadow:0 0 0 3px rgba(10,132,255,0.12); }
+.search-icon { color: var(--tertiary); flex-shrink:0; display:grid; place-items:center; }
+.apple-search { flex:1; border:none; background:transparent; outline:none; font-size:13px; color: var(--label); }
+.apple-search::placeholder { color: var(--tertiary); }
+
+/* ── List — Tahoe ── */
+.list-grouped { min-height:44px; max-height:320px; overflow-y:auto; overflow-x:hidden; scrollbar-width:thin; }
+.apple-item { display:flex; flex-direction:column; gap:10px; padding:12px 14px; background: transparent; position:relative; transition: background 0.16s var(--ease); }
+.apple-item + .apple-item::before { content:""; position:absolute; top:0; left:14px; right:0; height:0.5px; background: var(--separator); }
+.apple-item:hover { background: rgba(10,132,255,0.06); }
+.apple-item:active { background: rgba(10,132,255,0.08); }
+.apple-item.inactive { opacity:0.72; }
+.apple-item.inactive .item-hme { color: var(--secondary); }
+/* Tahoe 26 — indicador ultra-minimal • ponto com halo */
+.item-top { display:grid; grid-template-columns:12px minmax(0,1fr) auto; gap:10px; align-items:start; }
+.item-icon {
+  width:8px; height:8px; border-radius:50%;
+  background: transparent; border:1.5px solid var(--tertiary);
+  flex-shrink:0; margin-top:7px;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  font-size:0;
+}
+.apple-item.active .item-icon {
+  background: var(--blue); border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(10,132,255,0.14), 0 0 10px rgba(10,132,255,0.18);
+}
+.apple-item.active .item-icon::after { display:none; }
+.apple-item.inactive .item-icon { opacity:0.85; }
+.item-main { min-width:0; overflow:hidden; }
+.item-hme { font-family:"SF Mono", -apple-system, BlinkMacSystemFont, monospace; font-size:13px; font-weight:600; color: var(--label); line-height:1.3; letter-spacing:-0.12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block; }
+.item-meta-row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:3px; min-width:0; }
+.item-meta-row .favicon { width:16px; height:16px; border-radius:4px; flex-shrink:0; background: var(--bg); border:0.5px solid var(--separator); object-fit:cover; }
+.item-meta-row .favicon.placeholder { width:16px; height:16px; border:none; background: var(--fill); color: var(--tertiary); display:grid; place-items:center; font-size:8px; border-radius:4px; }
+.sub-label { font-weight:500; color: var(--secondary); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:140px; }
+.sub-dot { color: var(--tertiary); font-size:11px; }
+.sub-date { font-size:11px; color: var(--tertiary); white-space:nowrap; }
+.sub-note { font-size:11px; color: var(--secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:120px; }
+.item-badge { font-size:10px; font-weight:700; letter-spacing:0.3px; padding:3px 7px; border-radius:999px; background: rgba(230,244,234,0.9); color:#1B7A2B; flex-shrink:0; align-self:start; text-transform:uppercase; margin-top:2px; white-space:nowrap; border:0.5px solid rgba(200,230,201,0.8); backdrop-filter: blur(8px); }
+.item-badge.off { background: var(--fill); color: var(--secondary); border-color: transparent; }
+.item-actions { display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; align-items:center; margin-left:42px; }
+.item-actions button { border:none; border-radius:50%; width:30px; height:30px; padding:0; font-size:13px; font-weight:500; line-height:1; cursor:pointer; transition: all 0.14s var(--ease); font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; display:grid; place-items:center; white-space:nowrap; user-select:none; flex-shrink:0; border:0.5px solid transparent; backdrop-filter: blur(8px); }
+.item-actions button:hover { transform: translateY(-0.5px); box-shadow:0 2px 8px rgba(0,0,0,0.10); }
+.item-actions button:active { transform: scale(0.92); box-shadow:none; }
+.item-actions .act-copy { background: var(--fill); color: var(--secondary); }
+.item-actions .act-copy:hover { background: var(--fill-hover); color: var(--label); }
+.item-actions .act-use { background: var(--blue); color:white; box-shadow:0 1px 4px rgba(10,132,255,0.2); font-size:14px; border-color: rgba(10,132,255,0.2); }
+.item-actions .act-use:hover { background: var(--blue-hover); }
+.item-actions .act-edit { background: var(--fill); color: var(--secondary); }
+.item-actions .act-edit:hover { background: var(--fill-hover); color: var(--label); }
+.item-actions .act-toggle { background: var(--fill); color: var(--secondary); }
+.item-actions .act-toggle:hover { background: var(--fill-hover); color: var(--label); }
+.item-actions .act-delete { background: var(--fill); color: var(--red); }
+.item-actions .act-delete:hover { background: rgba(255,59,48,0.10); }
+.inline-edit { display:flex; gap:6px; margin-top:8px; align-items:center; flex-wrap:wrap; }
+.inline-edit input { flex:1; min-width:100px; font-size:12px; padding:7px 9px; border:0.5px solid var(--separator-strong); border-radius:8px; background: var(--card-solid); color: var(--label); outline:none; }
+.inline-edit input::placeholder { color: var(--tertiary); }
+.inline-edit input:focus { border-color: var(--blue); box-shadow:0 0 0 3px rgba(10,132,255,0.12); }
+.inline-edit button { font-size:11px; padding:6px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+.inline-edit .save { background: var(--blue); color:white; }
+.inline-edit .cancel { background: var(--fill); color: var(--secondary); }
+
+/* ── Footer Tahoe ── */
+.apple-footer { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 16px; font-size:11px; color: var(--secondary); border-top:0.5px solid var(--separator); margin-top:14px; background: rgba(255,255,255,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.footer-link { background:none; border:none; color: var(--blue); font-size:11px; cursor:pointer; text-decoration:none; padding:2px 4px; border-radius:4px; }
+.footer-link:hover { text-decoration:underline; text-underline-offset:2px; }
+.dot { color: var(--tertiary); font-size:11px; }
+.credits { text-align:center; font-size:10px; color: var(--tertiary); padding:8px 16px 14px; letter-spacing:0.1px; }
+.credits b { font-weight:600; color: var(--secondary); }
+
+/* ── Retrátil ── */
+.collapsible-details { background: transparent; border-radius:var(--radius); }
+.collapsible-summary { list-style:none; display:flex; align-items:center; justify-content:space-between; padding:7px 8px 8px; cursor:pointer; user-select:none; border-radius:8px; transition: background 0.15s; }
+.collapsible-summary::-webkit-details-marker { display:none; }
+.collapsible-summary:hover { background: rgba(0,0,0,0.04); }
+.collapsible-summary .section-title { color: var(--label); font-weight:600; margin:0; }
+.summary-left { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+.disclosure { color: var(--tertiary); font-size:11px; font-weight:700; transition: transform 0.24s var(--spring); display:inline-block; width:12px; text-align:center; }
+.collapsible-details[open] .disclosure { transform: rotate(90deg); }
+.count-badge { font-size:11px; background: var(--label); color: var(--card-solid); padding:2px 7px; border-radius:var(--radius-pill); font-weight:600; min-width:18px; text-align:center; border:0.5px solid var(--label); box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.count-badge.hidden { display:none !important; }
+.container-badge { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:600; padding:2px 7px; border-radius:var(--radius-pill); background: var(--fill); color: var(--secondary); border:0.5px solid var(--separator); }
+.container-dot { width:6px; height:6px; border-radius:50%; display:inline-block; flex-shrink:0; }
+.container-info { display:flex; align-items:center; gap:6px; background: transparent; border:none; padding:0 2px 8px 2px; margin:0; opacity:0.88; }
+.container-value { font-size:11px; font-weight:500; color: var(--secondary); }
+.container-label { font-size:10px; font-weight:400; color: var(--tertiary); }
+.collapsible-content { animation: collapsibleIn 0.28s var(--spring); padding-top:2px; }
+@keyframes collapsibleIn { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
+.hidden { display:none !important; }
+
+/* ── Privacidade ── */
+.privacy-section { padding-top:0; }
+.privacy-details { background: var(--card); backdrop-filter: saturate(180%) blur(24px); border-radius:var(--radius); overflow:hidden; box-shadow: var(--glass-shadow); border:0.5px solid rgba(60,60,67,0.08); }
+.privacy-details summary { list-style:none; padding:12px 14px; font-size:12px; font-weight:600; color: var(--blue); cursor:pointer; display:flex; align-items:center; gap:7px; }
+.privacy-details[open] summary { border-bottom:0.5px solid var(--separator); background: var(--card-hover); }
+.privacy-content { padding:11px 14px 13px; font-size:11px; color: var(--secondary); line-height:1.5; }
+.privacy-content code { font-family:"SF Mono", -apple-system, BlinkMacSystemFont, monospace; background: var(--bg); padding:1px 5px; border-radius:4px; font-size:10px; border:0.5px solid var(--separator); }
+.privacy-foot { font-size:10px; color: var(--tertiary); border-top:0.5px solid var(--separator); padding-top:9px; margin-top:9px; line-height:1.4; }
+
+/* ── Filtro ── */
+.filter-bar { display:flex; align-items:center; gap:6px; margin:9px 0 7px; flex-wrap:wrap; }
+.filter-chip { font-size:11px; font-weight:600; padding:5px 11px; border-radius:var(--radius-pill); border:0.5px solid var(--separator-strong); background: var(--card-solid); color: var(--secondary); cursor:pointer; transition: all 0.16s var(--ease); backdrop-filter: blur(8px); }
+.filter-chip.active { background: var(--blue); color:white; border-color: var(--blue); box-shadow:0 1px 4px rgba(10,132,255,0.22); }
+.filter-chip:hover:not(.active) { border-color: var(--blue); color: var(--blue); background: var(--blue-tint); }
+.sort-select { margin-left:auto; font-size:11px; font-weight:500; border:0.5px solid var(--separator-strong); border-radius:8px; padding:5px 9px; background: var(--card-solid); color: var(--label); cursor:pointer; }
+.sort-select:focus { outline:none; border-color: var(--blue); box-shadow:0 0 0 3px rgba(10,132,255,0.12); }
+.export-bar { display:flex; gap:7px; margin:9px 0 0; }
+.export-bar button { flex:1; font-size:11px; font-weight:600; padding:7px; border-radius:8px; border:0.5px solid var(--separator-strong); background: var(--card-solid); color: var(--blue); cursor:pointer; transition: background 0.15s; backdrop-filter: blur(8px); }
+.export-bar button:hover { background: var(--bg); }
+.pagination { display:flex; align-items:center; justify-content:space-between; padding:9px 4px 3px; font-size:11px; color: var(--secondary); }
+.pagination button { padding:5px 11px; border-radius:8px; border:0.5px solid var(--separator-strong); background: var(--card-solid); color: var(--blue); cursor:pointer; font-weight:600; font-size:11px; }
+.pagination button:disabled { opacity:0.36; cursor:not-allowed; }
+@keyframes popSuccess { 0% { transform: scale(1); } 45% { transform: scale(1.03); } 100% { transform: scale(1); } }
+.pop-animate { animation: popSuccess 0.36s var(--spring); }
+#sync-result .apple-grouped { padding:6px 0; }
+.sync-row { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; position:relative; }
+.sync-row + .sync-row::before { content:""; position:absolute; top:0; left:44px; right:0; height:0.5px; background: var(--separator); }
+.sync-icon { flex-shrink:0; margin-top:1px; }
+.check-circle { width:22px; height:22px; border-radius:50%; background:#E6F4EA; color:#1B7A2B; display:grid; place-items:center; font-size:11px; font-weight:700; }
+.check-circle.fail { background:#FFEBEB; color:#C62828; }
+.sync-label { min-width:96px; font-size:12px; font-weight:600; color: var(--label); padding-top:2px; }
+.sync-value { flex:1; font-size:11px; color: var(--secondary); line-height:1.4; text-align:right; word-break:break-all; padding-top:2px; }
+.sync-row.ok .sync-value { color:#1B7A2B; }
+.sync-row.fail .sync-value { color: var(--red); }
+#sync-time { padding:8px 14px 6px; border-top:0.5px solid var(--separator); margin-top:4px; font-size:10.5px; color: var(--tertiary); }
+
+/* ═══════════ Tahoe Escuro — Vidro Grafite ═══════════ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0A0B; --bg-gradient: linear-gradient(180deg, #0A0A0B 0%, #121214 100%);
+    --card: rgba(28,28,30,0.78); --card-hover: rgba(38,38,40,0.86); --card-solid: #1C1C1E;
+    --separator: rgba(84,84,88,0.26); --separator-strong: rgba(84,84,88,0.34);
+    --label: #F5F5F7; --secondary: #AEAEB2; --tertiary: #8E8E93;
+    --fill: rgba(120,120,128,0.20); --fill-hover: rgba(120,120,128,0.28);
+    --glass: rgba(28,28,30,0.72); --glass-border: rgba(255,255,255,0.08);
+    --glass-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.3), inset 0 0.5px 0 rgba(255,255,255,0.08);
+    color-scheme: dark;
+  }
+  html, body { background: var(--bg-gradient); color: var(--label); }
+  #app { background: transparent; scrollbar-color: rgba(84,84,88,0.30) transparent; }
+  .apple-header { background: rgba(28,28,30,0.72); backdrop-filter: saturate(180%) blur(36px); border-bottom-color: rgba(84,84,88,0.20); box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.06), 0 1px 3px rgba(0,0,0,0.3); }
+  .apple-card { background: var(--card); border-color: rgba(255,255,255,0.06); }
+  .apple-card::before { box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.07); }
+  .apple-grouped { background: var(--card); border-color: rgba(255,255,255,0.06); }
+  .email-preview { background: linear-gradient(180deg, rgba(38,38,40,0.9) 0%, rgba(28,28,30,0.85) 100%); }
+  .apple-search-wrap { background: var(--fill); }
+  .apple-search-wrap:focus-within { background: var(--card-solid); }
+  .apple-item:hover { background: rgba(255,255,255,0.06); }
+  .apple-item:active { background: rgba(255,255,255,0.09); }
+  .apple-footer { background: rgba(28,28,30,0.68); backdrop-filter: blur(16px); border-top-color: rgba(84,84,88,0.20); }
+  .check-circle { background:#1E3A22; color:#30D158; }
+  .check-circle.fail { background:#3A1F1F; color:#FF453A; }
+  .privacy-details { background: var(--card); border-color: rgba(255,255,255,0.06); }
+}
+
+/* ═══════════ Forçado — Tahoe Claro/Escuro ═══════════ */
+body.force-dark {
+  --bg: #0A0A0B; --bg-gradient: linear-gradient(180deg, #0A0A0B 0%, #121214 100%);
+  --card: rgba(28,28,30,0.78); --card-hover: rgba(38,38,40,0.86); --card-solid: #1C1C1E;
+  --separator: rgba(84,84,88,0.26); --separator-strong: rgba(84,84,88,0.34);
+  --label: #F5F5F7; --secondary: #AEAEB2; --tertiary: #8E8E93;
+  --fill: rgba(120,120,128,0.20); --fill-hover: rgba(120,120,128,0.28);
+  --glass: rgba(28,28,30,0.72); --glass-border: rgba(255,255,255,0.08);
+  --glass-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4), 0 20px 48px rgba(0,0,0,0.3), inset 0 0.5px 0 rgba(255,255,255,0.08);
+  background: var(--bg-gradient); color: var(--label); color-scheme: dark;
+}
+body.force-dark .apple-header { background: rgba(28,28,30,0.72); }
+body.force-dark .apple-footer { background: rgba(28,28,30,0.68); }
+body.force-light {
+  --bg: #F5F5F7; --bg-gradient: linear-gradient(180deg, #F5F5F7 0%, #EDEEF2 100%);
+  --card: rgba(255,255,255,0.82); --card-hover: rgba(255,255,255,0.92); --card-solid: #FFFFFF;
+  --separator: rgba(60,60,67,0.12); --separator-strong: rgba(60,60,67,0.18);
+  --label: #1D1D1F; --secondary: #545458; --tertiary: #6E6E73;
+  --fill: rgba(120,120,128,0.12); --fill-hover: rgba(120,120,128,0.18);
+  --glass: rgba(255,255,255,0.72); --glass-border: rgba(255,255,255,0.55);
+  --glass-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.07), 0 20px 48px rgba(0,0,0,0.04), inset 0 0.5px 0 rgba(255,255,255,0.85);
+  background: var(--bg-gradient); color: var(--label); color-scheme: light;
+}
+body.force-light .apple-header { background: rgba(255,255,255,0.72); }
+body.force-light .apple-footer { background: rgba(255,255,255,0.60); }

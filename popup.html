@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ocultar Meu E-mail</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header Apple iCloud -->
+    <header class="apple-header">
+      <div class="header-left">
+        <div class="icloud-icon"></div>
+        <div>
+          <h1>Ocultar Meu E-mail</h1>
+          <p class="subtitle">iCloud+</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button id="btn-theme-toggle" class="icon-btn header-theme-btn" title="Alternar tema claro/escuro">
+          <svg id="theme-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            <path d="M8 3V4M8 12V13M3 8H4M12 8H13M4.2 4.2L5.2 5.2M10.8 10.8L11.8 11.8M4.2 11.8L5.2 10.8M10.8 5.2L11.8 4.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <span id="status-dot" class="status-dot" title="verificando"></span>
+      </div>
+    </header>
+
+    <!-- Loading -->
+    <div id="loading" class="apple-loading">
+      <div class="spinner"></div>
+      <span>Verificando sessão...</span>
+    </div>
+
+    <!-- Signed Out — Apple Setup -->
+    <div id="signed-out" class="hidden">
+      <div class="apple-card illustration">
+        <div class="apple-illustration">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="56" height="56" rx="14" fill="#007AFF"/>
+            <path d="M14 18.5C14 16.57 15.57 15 17.5 15H38.5C40.43 15 42 16.57 42 18.5V33.5C42 35.43 40.43 37 38.5 37H17.5C15.57 37 14 35.43 14 33.5V18.5Z" fill="white" stroke="white" stroke-width="1.2"/>
+            <path d="M14.5 16.2L27.9 26.1C28.55 26.58 29.45 26.58 30.1 26.1L41.5 16.2" stroke="#007AFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="38" cy="38" r="10" fill="white" stroke="#007AFF" stroke-width="1.5"/>
+            <path d="M34.5 38.2C34.5 36 36 33.8 38 33.8C40 33.8 41.5 36 41.5 38.2C41.5 40.4 40 41.2 38 41.2C36 41.2 34.5 40.4 34.5 38.2Z" stroke="#007AFF" stroke-width="1.2" fill="none"/>
+            <circle cx="38" cy="38.8" r="1.4" fill="#007AFF"/>
+            <path d="M33.8 40.6L42.2 32.2" stroke="#FF3B30" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h2>Inicie sessão no iCloud</h2>
+        <p class="apple-desc">Para usar o Ocultar Meu E-mail, inicie sessão em <b>icloud.com</b> neste Firefox e toque em <b>Confiar</b> quando solicitado.</p>
+        <div class="apple-info-box">
+          <span class="info-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#007AFF" stroke-width="1.2"/><path d="M8 7.2V11" stroke="#007AFF" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="5.4" r="1" fill="#007AFF"/></svg>
+          </span>
+          <span>Marque <b>Manter sessão iniciada</b> para não precisar logar novamente.</span>
+        </div>
+        <a href="https://icloud.com" target="_blank" class="apple-btn primary large">Abrir iCloud.com →</a>
+        <button id="btn-retry-auth" class="apple-link-btn" type="button">Tentar novamente</button>
+        <a href="https://support.apple.com/pt-br/HT210425" target="_blank" class="apple-link">Saiba mais sobre Ocultar Meu E-mail</a>
+        <div class="secure-note">
+          <span class="info-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3.5" y="6.5" width="9" height="7" rx="1.2" stroke="#FFFFFF" stroke-width="1.2"/><path d="M6 6.5V5.2C6 3.43 7.43 2 9.2 2H6.8C7.43 2 6 3.43 6 5.2V6.5Z" stroke="#FFFFFF" stroke-width="1.2"/><circle cx="8" cy="10" r="1" fill="#FFFFFF"/><path d="M8 11V11.2" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </span>
+          <span><b>Privacidade garantida:</b> esta extensão não vê sua senha, não tem servidor e não coleta dados. Só usa os cookies do iCloud que já estão no seu Firefox.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signed In -->
+    <div id="signed-in" class="hidden">
+      <!-- Barra superior — Ações principais -->
+      <section class="apple-section">
+        <div class="top-bar">
+          <button id="btn-top-generate" class="apple-btn primary btn-top-generate">＋ Gerar novo</button>
+        </div>
+      </section>
+
+      <!-- Seção Criar - Grouped Inset Apple -->
+      <section class="apple-section">
+        <h2 class="section-title">Novo endereço</h2>
+        <div class="apple-grouped">
+          <!-- Preview do e-mail gerado -->
+          <div id="email-preview-row" class="grouped-row email-preview hidden">
+            <div class="email-preview-content">
+              <span class="email-label">Endereço gerado</span>
+              <code id="generated-email">—</code>
+              <span class="email-domain">privaterelay.appleid.com</span>
+            </div>
+            <button id="btn-refresh-email" class="icon-btn" title="Gerar outro">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M12.2 7C12.2 9.87 9.87 12.2 7 12.2C4.13 12.2 1.8 9.87 1.8 7C1.8 4.13 4.13 1.8 7 1.8C8.1 1.8 9.12 2.18 9.92 2.83" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M9.5 1.8V3.6H7.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 9.5L12.2 7L9.9 5.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <!-- Placeholder antes de gerar -->
+          <div id="email-empty" class="grouped-row email-empty">
+            <div class="email-preview-content muted">
+              <span>Clique em “Gerar novo”</span>
+            </div>
+          </div>
+
+          <!-- Encaminhar para -->
+          <div class="grouped-row">
+            <label class="row-label" for="forward-select">Encaminhar para</label>
+            <div class="row-control">
+              <select id="forward-select" class="apple-select"><option>Carregando...</option></select>
+              <span class="chevron">›</span>
+            </div>
+          </div>
+
+          <!-- Rótulo -->
+          <div class="grouped-row">
+            <label class="row-label" for="label-input">Rótulo</label>
+            <input id="label-input" class="apple-input" placeholder="ex: amazon.com" maxlength="30" />
+          </div>
+
+          <!-- Nota -->
+          <div class="grouped-row no-border">
+            <label class="row-label" for="note-input">Nota</label>
+            <input id="note-input" class="apple-input" placeholder="Opcional" maxlength="60" />
+          </div>
+        </div>
+        <p class="section-footer">Os e-mails enviados para este endereço serão encaminhados para o endereço acima. Você pode alterar o encaminhamento a qualquer momento.</p>
+
+        <div id="gen-error" class="apple-error hidden"></div>
+
+        <div id="action-reserve" class="action-area hidden">
+          <div class="apple-success">
+            <span class="success-icon">✓</span> Endereço reservado! Copiado para a área de transferência.
+          </div>
+          <div class="dual-actions">
+            <button id="btn-copy" class="apple-btn secondary">Copiar</button>
+            <button id="btn-autofill" class="apple-btn primary">Usar no site</button>
+          </div>
+          <button id="btn-generate-again" class="apple-link-btn">Gerar outro endereço</button>
+        </div>
+
+        <div id="action-pending" class="action-area hidden">
+          <button id="btn-reserve" class="apple-btn primary large">Criar e usar endereço</button>
+          <p class="hint">O rótulo e a nota ajudam a lembrar onde você usou este endereço.</p>
+        </div>
+      </section>
+
+      <!-- Seção Lista - Retrátil Apple -->
+      <section class="apple-section">
+        <details id="meus-enderecos-details" class="collapsible-details">
+          <summary class="collapsible-summary">
+            <div class="summary-left">
+              <span class="disclosure">›</span>
+              <h2 class="section-title">Meus endereços</h2>
+              <span id="list-count" class="count-badge hidden">0</span>
+            </div>
+          </summary>
+          <div class="collapsible-content">
+            <!-- Container Firefox — discreto -->
+            <div id="container-badge" class="container-info hidden" title="Aliases são compartilhados entre containers; indica a aba atual">
+              <span class="container-dot" id="container-dot"></span>
+              <span class="container-value" id="container-name">Padrão</span>
+              <span class="container-label">· container</span>
+            </div>
+            <div class="apple-search-wrap">
+              <span class="search-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.2"/><path d="M7.5 7.5L10 10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              </span>
+              <input id="search" class="apple-search" placeholder="Buscar" />
+            </div>
+            <div class="filter-bar">
+              <button class="filter-chip active" data-filter="all">Todos</button>
+              <button class="filter-chip" data-filter="active">Ativos</button>
+              <button class="filter-chip" data-filter="inactive">Desativados</button>
+              <select id="sort-select" class="sort-select">
+                <option value="recent">Mais recentes</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+                <option value="oldest">Mais antigos</option>
+              </select>
+            </div>
+            <div id="list" class="apple-grouped list-grouped"></div>
+            <div id="pagination" class="pagination hidden">
+              <button id="prev-page">‹ Anterior</button>
+              <span id="page-info">Página 1/1</span>
+              <button id="next-page">Próxima ›</button>
+            </div>
+            <div class="export-bar">
+              <button id="btn-export-csv">⬇︎ Exportar CSV</button>
+              <button id="btn-export-json">⬇︎ Exportar JSON</button>
+            </div>
+            <p id="list-error" class="apple-error hidden"></p>
+            <p id="list-empty" class="section-footer hidden">Nenhum endereço ainda. Gere seu primeiro acima.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Apoiar — discreto Tahoe -->
+      <section class="apple-section">
+        <div class="support-discreet">
+          <span class="support-discreet-label">♡ Apoiar</span>
+          <a href="https://github.com/sponsors/GeovaneYu" target="_blank" class="support-discreet-link">GitHub</a>
+          <span class="support-dot">·</span>
+          <a href="https://livepix.gg/GeovaneYu" target="_blank" class="support-discreet-link">Pix</a>
+        </div>
+      </section>
+
+      <footer class="apple-footer">
+        <button id="btn-signout" class="footer-link">Finalizar sessão</button>
+        <span class="dot">·</span>
+        <a href="https://www.icloud.com/icloudplus/hidemyemail" target="_blank" class="footer-link">Gerenciar no iCloud.com</a>
+      </footer>
+      <div class="credits">© 2026 <b>GeovaneYu</b> · Feito com ♥</div>
+
+      <!-- Nota de Privacidade e Segurança -->
+      <section class="apple-section privacy-section">
+        <details class="privacy-details">
+          <summary><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2.5" y="5" width="7" height="5.5" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M4 5V3.6C4 2.16 5.16 1 6.6 1C8.04 1 9.2 2.16 9.2 3.6V5" stroke="currentColor" stroke-width="1.1"/></svg> Privacidade e Segurança</summary>
+          <div class="privacy-content">
+            <p><b>Esta extensão NÃO tem acesso à sua senha, não coleta dados e não envia nada para terceiros.</b></p>
+            <ul>
+              <li><b>Sem senha:</b> Você faz login direto em <b>icloud.com</b>. A extensão nunca vê seu e-mail ou senha da Apple — usa apenas os cookies de sessão já salvos no Firefox após você clicar em “Confiar neste navegador”.</li>
+              <li><b>Sem servidor:</b> Não temos backend. Todas as requisições vão direto para a Apple (<code>setup.icloud.com</code> e <code>*.icloud.com</code>). Código 100% aberto para auditoria.</li>
+              <li><b>Zero coleta:</b> <code>manifest.json:52</code> declara <code>data_collection_permissions: none</code>. Nada é armazenado fora do seu aparelho — apenas <code>webservices</code> temporário em <code>browser.storage.local</code>.</li>
+              <li><b>Permissões mínimas:</b> <code>host_permissions</code> só para <code>*.icloud.com</code> + <code>&lt;all_urls&gt;</code> para detectar campos de e-mail e preencher. Sem acesso a histórico, senhas ou outras contas.</li>
+              <li><b>Transparente:</b> Build validado com <code>web-ext lint</code> (0 errors). Você pode inspecionar todo o código nesta pasta antes de publicar/usar.</li>
+            </ul>
+            <p class="privacy-foot">Mesma segurança de usar o <b>iCloud.com</b> no Safari. Se perder o aparelho, revogue em <a href="https://appleid.apple.com" target="_blank">appleid.apple.com</a> → Dispositivos. Dúvidas? Veja <a href="https://github.com/dedoussis/icloud-hide-my-email-browser-extension" target="_blank">projeto original auditado (533★)</a>.</p>
+          </div>
+        </details>
+      </section>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

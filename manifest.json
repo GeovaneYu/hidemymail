@@ -1,0 +1,84 @@
+{
+  "manifest_version": 3,
+  "name": "Ocultar Meu E-mail — iCloud+ para Firefox",
+  "version": "1.1.0",
+  "description": "Use o iCloud+ Ocultar Meu E-mail direto no Firefox. Gere aliases com rótulo, nota e escolha de encaminhamento — visual idêntico ao iCloud.",
+  "author": "GeovaneYu",
+  "homepage_url": "https://github.com/GeovaneYu",
+  "developer": {
+    "name": "GeovaneYu",
+    "url": "https://github.com/GeovaneYu"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "contextMenus",
+    "notifications",
+    "declarativeNetRequest",
+    "contextualIdentities"
+  ],
+  "host_permissions": [
+    "https://*.icloud.com/*",
+    "https://*.icloud.com.cn/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Ocultar Meu E-mail",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "icloud_headers",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "hidemymail@local",
+      "strict_min_version": "113.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}
